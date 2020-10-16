@@ -17,7 +17,8 @@
     "apollo-server": "^2.18.2",
     "graphql": "^15.3.0",
     "moment": "^2.29.1",
-    "mongoose": "^5.10.9"
+    "mongoose": "^5.10.9",
+    "playground": "^0.7.0"
   },
   "description": ""
 }
