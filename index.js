@@ -1,18 +1,27 @@
 
 const ApolloServer = require('apollo-server').ApolloServer;
-const resolvers = {};
-const typeDefs = require('./schema');
-const DB = require('./data/db');
+const typeDefs = require("./schema");
+const resolvers = require("./resolvers");
+const db = require("./data/db").connection;
+
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: async () => ({
-        db:DB
-    })
+    introspection: true,
+    playground: true
 });
 
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function() {
+    // were connected!
+    console.log("✔️ Connected to MongoDB ✔️");
 
-server
-    .listen()
-    .then(({ url }) => console.log(`GraphQL Service is running on ${ url }`));
+    server
+        .listen({
+            port: process.env.PORT || 4000
+        })
+        .then(({ url }) => {
+            console.log(`Server started at ${url}`);
+        });
+});

@@ -22,11 +22,11 @@ module.exports = {
         addPlayerToPickupGame: (parent, args) => {
             return 0;
         },
-        removePlayerPickupGame: (parent, args) => {
+        removePlayerFromPickupGame: (parent, args) => {
             return 0;
         },
 
-        deletePickupGame: (parent, args) => {
+        removePickupGame: (parent, args) => {
             db.pickupGames = db.pickupGames.filter(c => c.id !== args.id);
             return true;
         }

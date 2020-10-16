@@ -41,7 +41,7 @@ module.exports = {
             }
         },
         //mutation deletePlayer{deletePlayer(id:"5da9defbfd5e2e28707ccc71"){id,name}}
-        deletePlayer: async (parent, args, { db }) => {
+        removePlayer: async (parent, args, { db }) => {
             const player = await db.Player.findById(args.id);
             if (player != null || !player.deleted) {
                 await db.Player.findByIdAndUpdate(
