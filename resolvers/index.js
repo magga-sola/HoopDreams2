@@ -16,13 +16,18 @@ module.exports = {
     },
     ...pickupGameResolver.types,
     ...basketBallResolver.types,
+
     Moment: new GraphQLScalarType({
         name: 'Moment',
         description: 'Icelandic locale using the ‘llll’ format',
-        parseValue: (value) => { return value; },
-        parseLiteral: (value) => { return value; },
-        serialize: (value) => {
-            return moment(value).locale('is').format('llll');
+        serialize(value) {
+          return moment(value).locale('is').format('llll');;
+        },
+        parseValue(value) {
+          return value;
+           },
+            parseLiteral(ast) {
+          return ast;
         }
-    })
+      }) 
 };

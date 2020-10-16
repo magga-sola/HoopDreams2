@@ -5,6 +5,7 @@ const scalar = require('./scalar');
 const enums = require('./enums');
 const types = require('./types');
 const { gql } = require('apollo-server');
+
 module.exports = gql`
     ${queries}
     ${input}
@@ -12,5 +13,4 @@ module.exports = gql`
     ${scalar}
     ${enums}
     ${types}
-
 `;
