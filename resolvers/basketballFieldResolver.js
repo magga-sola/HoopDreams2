@@ -2,22 +2,19 @@
 // • (5%) basketballField - Should return a specific basketball field by id
 
 const errors = require("../errors");
-const fields = require("../services/basketballFieldService")
 
 module.exports = {
     queries: {
         allBasketballFields: async (parent, args) => {
             return 0;
         },
-        basketballFields: async (parent, args) => {
+        basketballField: async (parent, args) => {
             return 0;
         }
 
     },
     types: {
-        BasketballField: {
-            pickupGames: async (parent, args, {db}) => (await db.PickupGame.find({})).filter(b => b.basketballFieldId === parent.id)
-        }
+
 
     }
 };
