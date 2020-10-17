@@ -17,7 +17,7 @@ module.exports = {
         },
         //player
         player: async(parent, args) => {
-            const Player = await db.Player.findById(args.id);
+            const Player = await Players.findById(args.id);
 
             if (Player != null) {
                 return Player;
@@ -29,16 +29,16 @@ module.exports = {
     },
     mutations: {
         //createPlayer
-        createPlayer: async(parent, args, {db}) => {
+        createPlayer: async(parent, args) => {
             return 0;
         },
         //updatePlayer
-        updatePlayer: async(parent, args, {db}) => {
+        updatePlayer: async(parent, args) => {
             return 0;
         },
         //removePlayer
-        removePlayer: async(parent, args, {db}) => {
-            db.Player = db.Player.filter(p => p.id !== args.id);
+        removePlayer: async(parent, args) => {
+            db.Player = Players.filter(p => p.id !== args.id);
             return true;
         }
     },
