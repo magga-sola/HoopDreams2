@@ -3,23 +3,17 @@ const pickupGameSchema = require("../mongoose/models/PickupGame");
 const signupPlayerSchema = require("../mongoose/models/SignupPlayer");
 const basketballFieldSchema = require("../mongoose/models/BasketballField");
 const mongoose = require("mongoose");
+const uri = "mongodb+srv://eva:eva@hoopdreamscluster.irlk9.gcp.mongodb.net/test"
 
 
-mongoose.connect(
-    "mongodb+srv://eva:eva@hoopdreamscluster.irlk9.gcp.mongodb.net/test",
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }
-);
+const connection = mongoose.createConnection(uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
 
 module.exports = {
-    db: db,
-    Player: mongoose.model("Player", playerSchema),
-    PickupGame: mongoose.model("PickupGame", pickupGameSchema),
-    SignupPlayer: mongoose.model("SignupPlayer", signupPlayerSchema),
-    BasketballField: mongoose.model("BasketballField", basketballFieldSchema)
+    connection,
+    Player: mongoose.model("Player", playerSchema, 'Players'),
+    PickupGame: mongoose.model("PickupGame", pickupGameSchema, 'PickupGames'),
+    //SignupPlayer: mongoose.model("SignupPlayer", signupPlayerSchema, 'SignupPlayers'),
+    BasketballField: mongoose.model("BasketballField", basketballFieldSchema, 'BasketballFields')
 };
-
