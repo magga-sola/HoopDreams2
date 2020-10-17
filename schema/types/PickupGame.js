@@ -1,8 +1,8 @@
 module.exports = `
     type PickupGame {
         id: ID!
-        start: Int!
-        end: Int!
+        start: String!
+        end: String!
         location: BasketballField!
         registeredPlayers: [Player!]!
         host: Player!

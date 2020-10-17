@@ -1,16 +1,17 @@
 const db = require('../data/db');
-const PickupGame = require('../mongoose/models/PickupGame');
+const PickupGame = require("../data/db").PickupGame;
+//const PickupGame = require('../mongoose/models/PickupGame');
 
 module.exports = {
     queries: {
         allPickupGames: async () => {
-            try {
-                const allPickupGames = pickupGame.find({});
-                return allPickupGames;
-            } catch (e) {
-                console.log("e", e);
-                return [];
-            }
+//            try {
+            const pickupGames = await PickupGame.find({});
+            return pickupGames;
+//            } catch (e) {
+//               console.log("e", e); 
+//                return [];
+//            }
         },
         pickupGame: async (obj, {id}) => {
             console.log(id);
