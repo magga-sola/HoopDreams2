@@ -2,7 +2,6 @@ const playerSchema = require("../mongoose/models/Player");
 const pickupGameSchema = require("../mongoose/models/PickupGame");
 const signupPlayerSchema = require("../mongoose/models/SignupPlayer");
 const basketballFieldSchema = require("../mongoose/models/BasketballField");
-const helloSchema = require('../mongoose/models/hello');
 const mongoose = require("mongoose");
 
 
@@ -11,13 +10,11 @@ const uri = "mongodb+srv://eva:eva@hoopdreamscluster.irlk9.gcp.mongodb.net/HoopD
 
 const connection = mongoose.createConnection(uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
-const hello = connection.model("Hello", helloSchema, 'hellos');
 const Player = connection.model("Player", playerSchema, 'Players');
 const PickupGame = connection.model("PickupGame", pickupGameSchema, 'PickupGames');
 const BasketballField = connection.model("BasketballField", basketballFieldSchema, 'BasketballFields')
 
 module.exports = {
-    hello,
     connection,
     Player,
     PickupGame,
