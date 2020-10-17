@@ -16,7 +16,7 @@ mongoose.connect(
 const db = mongoose.connection;
 
 module.exports = {
-    connection: db,
+    db: db,
     Player: mongoose.model("Player", playerSchema),
     PickupGame: mongoose.model("PickupGame", pickupGameSchema),
     SignupPlayer: mongoose.model("SignupPlayer", signupPlayerSchema),
