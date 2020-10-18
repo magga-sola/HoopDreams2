@@ -2,6 +2,7 @@
 // • (5%) basketballField - Should return a specific basketball field by id
 
 const errors = require("../errors");
+const db = require('../data/db').connection;
 const dbBasketballFields = require('../data/db').BasketballField;
 module.exports = {
     queries: {
@@ -25,6 +26,12 @@ module.exports = {
                 }
             }
 
+        },
+    types: {
+        BasketballField: {
+            pickupGames: async (parent, args) =>
+                (await db.PickupGame.find({})).filter(b => b.location.id === parent.id)
         }
+    }
 
 };

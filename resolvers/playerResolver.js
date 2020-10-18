@@ -56,5 +56,12 @@ module.exports = {
                 return errors.NotFoundError();
             }
         }
+    },
+    types: {
+        Player: {
+            playedGames: async (parent, args) =>
+                (await db.PickupGame.find({}).filter(p => p.pickupGames.id === parent.id))
+
+        }
     }
 };

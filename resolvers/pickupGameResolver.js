@@ -110,5 +110,24 @@ module.exports = {
             }
         },
 
+    },
+    types: {
+        PickupGame: {
+            location: async (parent, args) =>
+                await basketBallFields.findById(parent.basketballFieldId),
+            host: async (parent, args, { db }) =>
+                await db.Player.findById(parent.hostId),
+            registeredPlayers: async (parent, args, { db }) => {
+                console.log(parent);
+                const playerList = [];
+                const players = await db.Player.find({});
+                players.forEach(player => {
+                    if (parent.registeredPlayers.includes(player.id)) {
+                        playerList.push(player);
+                    }
+                });
+                return playerList;
+            }
+        }
     }
 };

@@ -16,6 +16,7 @@ module.exports = {
     },
     ...pickupGameResolver.types,
     ...basketBallResolver.types,
+    ...playerResolver.types,
 
     Moment: new GraphQLScalarType({
         name: 'Moment',
