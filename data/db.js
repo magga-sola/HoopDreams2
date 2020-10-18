@@ -12,11 +12,13 @@ const connection = mongoose.createConnection(uri, {useNewUrlParser: true, useUni
 
 const Player = connection.model("Player", playerSchema, 'Players');
 const PickupGame = connection.model("PickupGame", pickupGameSchema, 'PickupGames');
+const SignupPlayer = connection.model("SignupPlayer", signupPlayerSchema, 'SignupPlayer');
 const BasketballField = connection.model("BasketballField", basketballFieldSchema, 'BasketballFields')
 
 module.exports = {
     connection,
     Player,
     PickupGame,
+    SignupPlayer,
     BasketballField
 };
