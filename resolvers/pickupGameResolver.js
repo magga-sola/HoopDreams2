@@ -1,6 +1,8 @@
 const db = require('../data/db');
 const errors = require('../errors');
 const dbPickupGame = require('../data/db').PickupGame;
+const dbBasketballField = require('../data/db').BasketballField;
+const dbPlayer = require('../data/db').Player;
 
 module.exports = {
     queries: {
@@ -114,24 +116,23 @@ module.exports = {
     types: {
         PickupGame: {
             location: async (parent, args) =>
-                await db.BasketballField.findById(parent.location),
-            host: async (parent, args, { db }) =>
-                await db.Player.findById(parent.host),
-            registeredPlayers: async (parent, args, { db }) => {
-                console.log(parent);
-                const playerList = [];
-                const players = await db.Player.find({});
-                players.forEach(player => {
-                    if (parent.registeredPlayers.includes(player.id)) {
-                        playerList.push(player);
-                    }
-                });
-                return playerList;
+                await dbBasketballField.findById(parent.location),
+
+            host: async (parent, args) =>
+                await dbPlayer.findById(parent.host),
+
+            registeredPlayers: async (parent, args) => {
+                const players = [];
+
+                parent.registeredPlayers.forEach( playerId => {
+                    let player = dbPlayer.findById(playerId);
+                    players.push(player);
+                })
+                return players;
             }
         }
     },
-    getGamesByPlayerId: async(_, args) => {
 
 
-    }
+
 };
