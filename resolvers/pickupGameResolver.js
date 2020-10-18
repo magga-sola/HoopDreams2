@@ -12,6 +12,8 @@ module.exports = {
                 console.log("e", e);
                 return [];
             }
+
+
         },
         pickupGame: async (obj, {id}) => {
             console.log(id);
