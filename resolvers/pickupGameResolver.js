@@ -129,5 +129,9 @@ module.exports = {
                 return playerList;
             }
         }
+    },
+    getGamesByPlayerId: async(_, args) => {
+
+
     }
 };
