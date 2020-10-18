@@ -8,7 +8,7 @@ const fields = require("../services/basketballFieldService");
 module.exports = {
     queries: {
         allBasketballFields: async (parent, args) => {
-            const basketballFields = await herokuFields.basketballFields.response.body.filter(b => b.status == args.status);
+            const basketballFields = await fields.basketballFields.response.body.filter(b => b.status == args.status);
             if (basketballFields != null) {
             return basketballFields
             } else {
@@ -17,7 +17,7 @@ module.exports = {
         },
 
         basketballField: async (parent, args) => {
-            const basketballField = await herokuFields.findById(args.id);
+            const basketballField = await fields.findById(args.id);
             if (basketballField != null) {
             return basketballField;
             } else {
