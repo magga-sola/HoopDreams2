@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 
-module.exports = new Schema({
+module.exports = new mongoose.Schema({
     start: { type: String, required: true },
     end: { type: String, required: true },
-    basketballFieldId: { type: String, required: true },
-    registeredPlayers: [{ type: String, required: true }],
-    hostId: { type: mongoose.Types.ObjectId, ref: 'Player', required: true },
-    deleted: { type: Boolean, default: false }
+    location: { type: String, ref:'BasketballField', required: true },
+    registeredPlayers: [{ type: String, ref:'Player', required: true }],
+    host: { type: String, ref: 'Player', required: true },
 });

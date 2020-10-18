@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
 
-module.exports = new Schema({
+module.exports = new mongoose.Schema({
     name: { type: String, required: true },
     playedGames: [{ type: mongoose.Types.ObjectId, ref: "PickupGame" }],
-    deleted: { type: Boolean, default: false }
 });

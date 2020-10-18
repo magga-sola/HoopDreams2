@@ -1,11 +1,12 @@
 const db = require('../data/db');
 const PickupGame = require('../mongoose/models/PickupGame');
+const dbPickupGame = require('../data/db').PickupGame;
 
 module.exports = {
     queries: {
         allPickupGames: async () => {
             try {
-                const allPickupGames = pickupGame.find({});
+                const allPickupGames = dbPickupGame.find({});
                 return allPickupGames;
             } catch (e) {
                 console.log("e", e);
@@ -15,7 +16,7 @@ module.exports = {
         pickupGame: async (obj, {id}) => {
             console.log(id);
             try {
-                const foundPickupGame = await PickupGame.findbyId(id);
+                const foundPickupGame = await dbPickupGame.findById(id);
                 return foundPickupGame;
             } catch(e) {
                 console.log("e", e);
