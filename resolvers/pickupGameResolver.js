@@ -114,9 +114,9 @@ module.exports = {
     types: {
         PickupGame: {
             location: async (parent, args) =>
-                await basketBallFields.findById(parent.basketballFieldId),
+                await db.BasketballField.findById(parent.location),
             host: async (parent, args, { db }) =>
-                await db.Player.findById(parent.hostId),
+                await db.Player.findById(parent.host),
             registeredPlayers: async (parent, args, { db }) => {
                 console.log(parent);
                 const playerList = [];
