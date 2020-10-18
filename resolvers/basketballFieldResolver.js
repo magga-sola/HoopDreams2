@@ -3,6 +3,7 @@
 
 const errors = require("../errors");
 const db = require('../data/db').connection;
+const dbPickupGames = require('../data/db').PickupGame;
 const dbBasketballFields = require('../data/db').BasketballField;
 const herokuFields = require("../services/basketballFieldService");
 
@@ -31,9 +32,15 @@ module.exports = {
         },
     types: {
         BasketballField: {
-            pickupGames: async (parent, args) =>
-                (await db.PickupGame.find({})).filter(b => b.location.id === parent.id)
+            pickupGames: async (parent, args) => {
+                const games = [];
+
+                parent.pickupGames.forEach( gameId => {
+                    let game = dbPickupGames.findById(gameId);
+                    games.push(game);
+                })
+                return games;
+            }
         }
     }
-
 };

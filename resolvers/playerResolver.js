@@ -61,11 +61,16 @@ module.exports = {
     types: {
         Player: {
             playedGames: async (parent, args) => {
-                const pickupGameArray = await dbPickupGames.find({});
-                return pickupGameArray.filter(p => p.playedGames === parent.id);
+                const games = [];
+
+                parent.playedGames.forEach( gameId => {
+                    let game = dbPickupGames.findById(gameId);
+                    games.push(game)
+                })
+
+                return games;
             }
-
-
         }
     }
+
 };
