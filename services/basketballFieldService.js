@@ -1,4 +1,4 @@
-//const request = require("request")
+const request = require("request")
 
 allBasketballFields: async() => {
     request.get("https://basketball-fields.herokuapp.com/api/basketball-fields", (err, res, body) => {

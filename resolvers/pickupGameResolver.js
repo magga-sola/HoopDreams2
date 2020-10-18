@@ -31,15 +31,33 @@ module.exports = {
     mutations: {
         createPickupGame: async(parent, args) => {
 
-            //find the basketballfield and host of the game
+            //find the basketballField and host of the game
             const pickupGameBasketballField = await db.BasketballField.findById(args.input.location);
             const pickupGameHost = db.Player.findById(args.input.host);
 
 
-            // can't add game with a closed basketballfield
-            if (pickupGameBasketballField == "CLOSED") {
+            // can't add game to a closed BasketballField
+            if (pickupGameBasketballField.status == "CLOSED") {
                 throw new errors.BasketballFieldClosedError();
             }
+
+            // can't overlap with games with the same BasketballField
+            pickupGameBasketballField.pickupGames.forEach( gameId => {
+                let game = dbPickupGame.findById(gameId);
+                if (game.start < args.input.end && args.input.start < game.end){
+                    throw new errors.PickupGameOverlapError();
+                }
+            })
+
+            // check if start and end date have passed
+            if (args.input.start < Date.now() || args.input.end < Date.now()){
+                throw new errors.PickupGameAlreadyPassedError();
+            }
+            // check if end date is before the start date
+                else if (args.input.end < args.input.start){
+                    throw new errors.UserInputError(args.input.end, args.input.start);
+            }
+
 
             // actually create the game
             const newPickupGame = {
@@ -59,6 +77,16 @@ module.exports = {
 
             // check them both
             if (player != null && game != null){
+
+                // check if game has passed
+                if (game.end < Date.now()){
+                    throw new errors.PickupGameAlreadyPassedError();
+
+                    //check if the basketballField is at maximum capacity
+                } else if (game.location.capacity == 0) {
+                    throw new errors.PickupGameExceedMaximumError();
+                }
+
                 // update the player
                 const updatedPlayer = await db.Player.findByIdAndUpdate(
                     args.input.playerId,
@@ -85,6 +113,15 @@ module.exports = {
 
             //check them both
             if (player != null && game != null) {
+
+                // check if the game has passed
+                if (game.end < Date.now()){
+                    throw new errors.PickupGameAlreadyPassedError();
+                }
+
+                // check if player is in the game
+                if (game.registeredPlayers.includes(player)) {
+
                 const updatedPlayer = await db.Player.findByIdAndUpdate(
                     args.input.playerId,
                     {$pull: {playedGames: game}}
@@ -93,7 +130,9 @@ module.exports = {
                 const updatedGame = await dbPickupGame.findByIdAndUpdate(
                   args.input.pickupGameId,
                     { $pull: {registeredPlayers: player}}
-                );
+                );} else {
+                    throw new error.UserInputError("Player is not registered in this game");
+                }
 
             } else {
                 throw new errors.NotFoundError();
