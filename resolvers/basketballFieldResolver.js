@@ -7,7 +7,11 @@ module.exports = {
     queries: {
         allBasketballFields: async (parent, args) => {
             const basketballfields = await basketballFields.find({});
+            if (basketballfields != null) {
             return basketballfields
+            } else {
+                return errors.NotFoundError();
+            }
         },
 
         basketballField: async (parent, args) => {
@@ -19,9 +23,6 @@ module.exports = {
                 }
             }
 
-        },
-    types: {
+        }
 
-
-    }
 };
