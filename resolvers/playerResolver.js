@@ -1,6 +1,3 @@
-// • (5%) createPlayer - Create a player and returns the newly created player matching the Player type
-// • (5%) updatePlayer - Updates a player by id and returns the updated player matching the Player type
-// • (5%) removePlayer - Marks a player as deleted and returns either true or an error if something happened
 const errors = require("../errors");
 const db = require('../data/db').connection;
 const Players = require('../data/db').Player;
@@ -13,10 +10,10 @@ module.exports = {
             const players = await Players.find({});
             return players
         },
+
         //player
         player: async(parent, args) => {
             const Player = await Players.findById(args.id);
-
             if (Player != null) {
                 return Player;
             } else {
@@ -26,13 +23,15 @@ module.exports = {
 
     },
     mutations: {
+
         //createPlayer
         createPlayer: async(parent, args) => {
             const bool = await db.Player.create(args.input);
-            return true;
+            return bool;
             // when should it be false? make sure this is dealt with!
 
         },
+
         //updatePlayer
         updatePlayer: async(parent, args) => {
             const player = await Players.findById(args.id);
@@ -40,13 +39,13 @@ module.exports = {
                 return await db.Player.findByIdAndUpdate(
                     args.id,
                     {name: args.name},
-                    {playedGames:args.playedGames}
                     );
 
             } else {
                 throw new errors.NotFoundError();
             }
         },
+
         //removePlayer
         removePlayer: async(parent, args) => {
             const player = db.Player.findById(args.id);
@@ -57,9 +56,5 @@ module.exports = {
                 return errors.NotFoundError();
             }
         }
-    },
-    types: {
-
     }
-
 };

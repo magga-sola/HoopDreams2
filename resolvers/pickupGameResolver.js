@@ -1,6 +1,5 @@
 const db = require('../data/db');
 const errors = require('../errors');
-const PickupGameSchema = require('../mongoose/models/PickupGame');
 const dbPickupGame = require('../data/db').PickupGame;
 
 module.exports = {
@@ -39,7 +38,6 @@ module.exports = {
             if (pickupGameBasketballField == "CLOSED") {
                 throw new errors.BasketballFieldClosedError();
             }
-
 
             // actually create the game
             const newPickupGame = {

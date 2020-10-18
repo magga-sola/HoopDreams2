@@ -2,20 +2,22 @@
 // • (5%) basketballField - Should return a specific basketball field by id
 
 const errors = require("../errors");
-const basketballFields = require('../data/db').BasketballField;
+const dbBasketballFields = require('../data/db').BasketballField;
 module.exports = {
     queries: {
         allBasketballFields: async (parent, args) => {
-            const basketballfields = await basketballFields.find({});
-            if (basketballfields != null) {
-            return basketballfields
+            const basketballFields = await dbBasketballFields.find({});
+
+            if (basketballFields != null) {
+            return basketballFields
             } else {
                 return errors.NotFoundError();
             }
         },
 
         basketballField: async (parent, args) => {
-            const basketballField = await basketballFields.findById(args.id);
+            const basketballField = await dbBasketballFields.findById(args.id);
+
             if (basketballField != null) {
             return basketballField;
             } else {
