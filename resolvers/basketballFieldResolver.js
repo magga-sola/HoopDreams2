@@ -5,7 +5,7 @@ const errors = require("../errors");
 const db = require('../data/db').connection;
 const dbPickupGames = require('../data/db').PickupGame;
 const dbBasketballFields = require('../data/db').BasketballField;
-const herokuFields = require("../services/basketballFieldService");
+const fields = require("../services/basketballFieldService");
 
 module.exports = {
     queries: {
