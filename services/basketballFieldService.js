@@ -1,8 +1,17 @@
-const request = require("request")
+const request = require("request");
 
-var fields = request.get("https://basketball-fields.herokuapp.com/api/basketball-fields", {json: true}, (err, res, body) => {
+let bFields = request.get("https://basketball-fields.herokuapp.com/api/basketball-fields", {json: true}, (err, res, body) => {
     if (err) {
-        return console.log(err)
+        return console.log(err);
     }
-    return body
+    return body;
 })
+
+const findById = (id) => {
+    return bFields.response.body.find(b => b.id === id);
+}
+
+module.exports = {
+    BasketballFields: bFields,
+    findById
+}
