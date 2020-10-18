@@ -1,5 +1,3 @@
-// • (5%) allBasketballFields - Should return a collection of all basketball fields. Contains a field argument called status which is of type BasketballFieldStatus (enum) and should be used to filter the data based on the status of the basketball field
-// • (5%) basketballField - Should return a specific basketball field by id
 
 const errors = require("../errors");
 const db = require('../data/db').connection;
@@ -10,8 +8,7 @@ const herokuFields = require("../services/basketballFieldService");
 module.exports = {
     queries: {
         allBasketballFields: async (parent, args) => {
-            const basketballFields = await dbBasketballFields.find({});
-
+            const basketballFields = await herokuFields.basketballFields.response.body.filter(b => b.status == args.status);
             if (basketballFields != null) {
             return basketballFields
             } else {
@@ -20,8 +17,7 @@ module.exports = {
         },
 
         basketballField: async (parent, args) => {
-            const basketballField = await dbBasketballFields.findById(args.id);
-
+            const basketballField = await herokuFields.findById(args.id);
             if (basketballField != null) {
             return basketballField;
             } else {

@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94864081-3690-4483-9e39-3a5bfa40c35d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resolvers/pickupGameResolver.js" beforeDir="false" afterPath="$PROJECT_DIR$/resolvers/pickupGameResolver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/basketballFieldService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/basketballFieldService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resolvers/basketballFieldResolver.js" beforeDir="false" afterPath="$PROJECT_DIR$/resolvers/basketballFieldResolver.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
