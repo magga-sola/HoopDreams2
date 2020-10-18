@@ -1,19 +1,20 @@
 const errors = require("../errors");
 const db = require('../data/db').connection;
-const Players = require('../data/db').Player;
+const dbPlayers = require('../data/db').Player;
+const dbPickupGames = require('../data/db').PickupGame;
 
 module.exports = {
     queries: {
 
         //allPlayers
         allPlayers: async(parent, args) => {
-            const players = await Players.find({});
+            const players = await dbPlayers.find({});
             return players
         },
 
         //player
         player: async(parent, args) => {
-            const Player = await Players.findById(args.id);
+            const Player = await dbPlayers.findById(args.id);
             if (Player != null) {
                 return Player;
             } else {
@@ -26,7 +27,7 @@ module.exports = {
 
         //createPlayer
         createPlayer: async(parent, args) => {
-            const bool = await db.Player.create(args.input);
+            const bool = await dbPlayers.create(args.input);
             return bool;
             // when should it be false? make sure this is dealt with!
 
@@ -34,7 +35,7 @@ module.exports = {
 
         //updatePlayer
         updatePlayer: async(parent, args) => {
-            const player = await Players.findById(args.id);
+            const player = await dbPlayers.findById(args.id);
             if (player != null) {
                 return await db.Player.findByIdAndUpdate(
                     args.id,
@@ -48,9 +49,9 @@ module.exports = {
 
         //removePlayer
         removePlayer: async(parent, args) => {
-            const player = db.Player.findById(args.id);
+            const player = dbPlayers.findById(args.id);
             if (player != null){
-                db.Player.findByIdAndDelete(args.id)
+                dbPlayers.findByIdAndDelete(args.id)
                 return true; //it returns a boolean right?
             } else {
                 return errors.NotFoundError();
@@ -59,8 +60,11 @@ module.exports = {
     },
     types: {
         Player: {
-            playedGames: async (parent, args) =>
-                (await db.PickupGame.find({}).filter(p => p.pickupGames.id === parent.id))
+            playedGames: async (parent, args) => {
+                const pickupGameArray = await dbPickupGames.find({});
+                return pickupGameArray.filter(p => p.playedGames === parent.id);
+            }
+
 
         }
     }
