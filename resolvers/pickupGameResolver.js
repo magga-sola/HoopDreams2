@@ -13,7 +13,6 @@ module.exports = {
                 return [];
             }
 
-
         },
         pickupGame: async (obj, {id}) => {
             console.log(id);
@@ -25,9 +24,7 @@ module.exports = {
                 return {}
             }
         }
-//        pickupGame: (parent, args) => {
-//            return db.pickupGame.find(e => e.id === args.id);
-//        }
+
     },
     mutations: {
         createPickupGame: (parent, args) => {
