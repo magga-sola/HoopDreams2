@@ -85,7 +85,9 @@ module.exports = {
                     //check if the basketballField is at maximum capacity
                 } else if (game.location.capacity == 0) {
                     throw new errors.PickupGameExceedMaximumError();
-                }
+                } else if (game.registeredPlayers.includes(player)) {
+                    throw new errors.UserInputError("Player can only be registered once to the same pickup game");
+                } 
 
                 // update the player
                 const updatedPlayer = await db.Player.findByIdAndUpdate(

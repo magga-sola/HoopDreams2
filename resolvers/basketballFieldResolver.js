@@ -1,14 +1,12 @@
-
 const errors = require("../errors");
-const db = require('../data/db').connection;
 const dbPickupGames = require('../data/db').PickupGame;
-const dbBasketballFields = require('../data/db').BasketballField;
 const fields = require("../services/basketballFieldService");
 
 module.exports = {
     queries: {
         allBasketballFields: async (parent, args) => {
-            const basketballFields = await fields.basketballFields.response.body.filter(b => b.status == args.status);
+            const basketballFields = await fields.BasketballFields.response.body;
+
             if (basketballFields != null) {
             return basketballFields
             } else {
@@ -29,12 +27,7 @@ module.exports = {
     types: {
         BasketballField: {
             pickupGames: async (parent, args) => {
-                const games = [];
-
-                parent.pickupGames.forEach( gameId => {
-                    let game = dbPickupGames.findById(gameId);
-                    games.push(game);
-                })
+                let games = dbPickupGames.find({location: parent.id});
                 return games;
             }
         }

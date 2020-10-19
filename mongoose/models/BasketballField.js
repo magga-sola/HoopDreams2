@@ -6,5 +6,4 @@ module.exports = new mongoose.Schema({
     yearOfCreation: { type: String, required: true},
     pickupGames: [{type: mongoose.Types.ObjectId, ref:'PickupGame', required: true }],
     status: { type: String, required: true}
-    //hello
 });
